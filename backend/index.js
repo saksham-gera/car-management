@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -10,7 +9,7 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const authRoutes = require('./routes/authRoutes');
 const carRoutes = require('./routes/carRoutes');
 const { SwaggerUIBundle, SwaggerUIStandalonePreset } = require('swagger-ui-dist');
-
+console.log(__dirname);
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
