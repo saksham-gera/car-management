@@ -21,7 +21,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/cars:
+ *  /api/cars:
  *   post:
  *     summary: Create a new car
  *     tags: [Cars]
