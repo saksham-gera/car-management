@@ -36,8 +36,10 @@ const options = {
 customCssUrl: CSS_URL,
 customCss: `
     .opblock-summary-path {
-      word-wrap: break-word;
-      white-space: normal;
+      word-wrap: break-word; /* Break long words gracefully */
+      white-space: normal; /* Prevent single-letter wrapping */
+      overflow-wrap: break-word; /* Support for older browsers */
+      font-size: 14px; /* Reduce font size if necessary */
     }
   `,
 };
