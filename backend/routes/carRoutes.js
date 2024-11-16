@@ -21,7 +21,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /cars:
+ * /api/cars:
  *   post:
  *     summary: Create a new car
  *     tags: [Cars]
@@ -56,7 +56,7 @@ router.post('/', protect, createCar);
 
 /**
  * @swagger
- * /cars:
+ * /api/cars:
  *   get:
  *     summary: Get all cars for the logged-in user
  *     tags: [Cars]
@@ -70,7 +70,7 @@ router.get('/', protect, getCars);
 
 /**
  * @swagger
- * /cars/all:
+ * /api/cars/all:
  *   get:
  *     summary: Get all cars (no user filtering)
  *     tags: [Cars]
@@ -82,7 +82,7 @@ router.get('/all', getAllCars);
 
 /**
  * @swagger
- * /cars/search:
+ * /api/cars/search:
  *   get:
  *     summary: Search cars by keyword
  *     tags: [Cars]
@@ -102,7 +102,7 @@ router.get('/search', protect, searchCars);
 
 /**
  * @swagger
- * /cars/{id}:
+ * /api/cars/{id}:
  *   get:
  *     summary: Get car by ID
  *     tags: [Cars]
@@ -123,7 +123,7 @@ router.get('/:id', getCarById);
 
 /**
  * @swagger
- * /cars/{id}:
+ * /api/cars/{id}:
  *   put:
  *     summary: Update car by ID
  *     tags: [Cars]
@@ -158,7 +158,7 @@ router.put('/:id', protect, updateCar);
 
 /**
  * @swagger
- * /cars/{id}:
+ * /api/cars/{id}:
  *   delete:
  *     summary: Delete car by ID
  *     tags: [Cars]

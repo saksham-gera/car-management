@@ -11,7 +11,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /auth/signup:
+ * /api/auth/signup:
  *   post:
  *     summary: Signup a new user
  *     tags: [Auth]
@@ -34,7 +34,7 @@ router.post('/signup', signup);
 
 /**
  * @swagger
- * /auth/login:
+ * /api/auth/login:
  *   post:
  *     summary: Login an existing user
  *     tags: [Auth]
@@ -57,7 +57,7 @@ router.post('/login', login);
 
 /**
  * @swagger
- * /auth/verify:
+ * /api/auth/verify:
  *   get:
  *     summary: Verify and extract user details from token
  *     tags: [Auth]
