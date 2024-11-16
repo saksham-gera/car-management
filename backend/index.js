@@ -9,6 +9,8 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const authRoutes = require('./routes/authRoutes');
 const carRoutes = require('./routes/carRoutes');
+const { SwaggerUIBundle, SwaggerUIStandalonePreset } = require('swagger-ui-dist');
+
 
 const swaggerOptions = {
   definition: {
