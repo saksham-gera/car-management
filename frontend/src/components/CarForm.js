@@ -33,19 +33,18 @@ const CarForm = ({ isEdit = false }) => {
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     const validFiles = files.filter((file) => file.type.startsWith('image/'));
-
+  
     if (validFiles.length !== files.length) {
       alert('Please upload only image files (e.g., .jpg, .jpeg, .png, .gif)');
       return;
     }
-
-    if (formData.images.length + validFiles.length > 10) {
+  
+    if (validFiles.length > 10) {
       alert('You can upload a maximum of 10 images.');
       return;
     }
-
-    setFormData({ ...formData, images: [...formData.images, ...validFiles] });
-    setPreviewImages([...previewImages, ...validFiles.map((file) => URL.createObjectURL(file))]);
+    setFormData({ ...formData, images: validFiles });
+    setPreviewImages(validFiles.map((file) => URL.createObjectURL(file)));
   };
 
   const handleSubmit = wrapAsync(async (e) => {
