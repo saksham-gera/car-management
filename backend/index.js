@@ -35,12 +35,13 @@ const CSS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger
 const options = {
 customCssUrl: CSS_URL,
 customCss: `
+    .swagger-ui .opblock-summary {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
     .swagger-ui .opblock-summary-path {
-      display: inline;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      font-size: 14px;
+      max-width: 100%;
     }
   `,
 };
