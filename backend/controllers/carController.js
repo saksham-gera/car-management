@@ -1,17 +1,39 @@
 const Car = require('../models/Car.js');
+const cloudinary = require('../config/cloudinary.js');
+
+
+const deleteImages = async (imageUrls) => {
+  try {
+    const deletionPromises = imageUrls.map((url) => {
+      const publicId = url.split('/').pop().split('.')[0]; // Extract the public ID from the URL
+      return cloudinary.uploader.destroy(publicId);       // Delete the image by public ID
+    });
+
+    return await Promise.all(deletionPromises); // Wait for all deletions
+  } catch (err) {
+    console.error('Error deleting images from Cloudinary:', err);
+    throw new Error('Failed to delete images');
+  }
+};
 
 // Create a new car
 exports.createCar = async (req, res) => {
   try {
     const { title, description, tags } = req.body;
-    const images = req.files.map((file) => file.path);
+
+    // Upload images to Cloudinary
+    const imagePromises = req.files.map((file) => cloudinary.uploader.upload(file.path));
+    const uploadedImages = await Promise.all(imagePromises);
+    const imageUrls = uploadedImages.map((image) => image.secure_url);
+
     const car = new Car({
       user: req.user.id,
       title,
       description,
       tags: tags.split(',').map((tag) => tag.trim()),
-      images,
+      images: imageUrls,
     });
+
     await car.save();
     res.status(201).json(car);
   } catch (err) {
@@ -19,7 +41,6 @@ exports.createCar = async (req, res) => {
   }
 };
 
-// Get all cars for the logged-in user
 exports.getCars = async (req, res) => {
   try {
     const cars = await Car.find({ user: req.user.id });
@@ -59,19 +80,26 @@ exports.updateCar = async (req, res) => {
       tags: tags ? tags.split(',').map((tag) => tag.trim()) : undefined,
     };
 
-    // If new images are uploaded, replace the existing images
+    const car = await Car.findOne({ _id: req.params.id, user: req.user.id });
+    if (!car) return res.status(404).json({ message: 'Car not found or unauthorized' });
+
+    // If new images are uploaded, delete existing images and upload new ones
     if (req.files && req.files.length > 0) {
-      updatedData.images = req.files.map((file) => file.path);
+      if (car.images && car.images.length > 0) {
+        await deleteImages(car.images);
+      }
+      const imagePromises = req.files.map((file) => cloudinary.uploader.upload(file.path));
+      const uploadedImages = await Promise.all(imagePromises);
+      updatedData.images = uploadedImages.map((image) => image.secure_url);
     }
 
-    const car = await Car.findOneAndUpdate(
+    const updatedCar = await Car.findOneAndUpdate(
       { _id: req.params.id, user: req.user.id },
       updatedData,
       { new: true }
     );
 
-    if (!car) return res.status(404).json({ message: 'Car not found or unauthorized' });
-    res.json(car);
+    res.json(updatedCar);
   } catch (err) {
     res.status(500).json({ message: 'Error updating car', error: err.message });
   }
@@ -82,7 +110,11 @@ exports.deleteCar = async (req, res) => {
   try {
     const car = await Car.findOneAndDelete({ _id: req.params.id, user: req.user.id });
     if (!car) return res.status(404).json({ message: 'Car not found or unauthorized' });
-    res.json({ message: 'Car deleted successfully' });
+    if (car.images && car.images.length > 0) {
+      await deleteImages(car.images);
+    }
+
+    res.json({ message: 'Car and associated images deleted successfully' });
   } catch (err) {
     res.status(500).json({ message: 'Error deleting car', error: err.message });
   }

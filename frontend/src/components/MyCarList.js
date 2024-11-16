@@ -99,7 +99,7 @@ const MyCarList = () => {
                     <CardMedia
                       key={index}
                       component="img"
-                      image={`${process.env.REACT_APP_SERVER_ADDRESS}/${image}`}
+                      image={`${image}`}
                       alt={`Car ${index}`}
                       sx={{
                         position: 'absolute',

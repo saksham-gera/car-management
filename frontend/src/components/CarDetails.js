@@ -32,6 +32,7 @@ const CarDetails = () => {
   useEffect(() => {
     const fetchCar = wrapAsync(async () => {
       const { data } = await axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/cars/${id}`);
+      console.log(data);
       setCar(data);
     });
     fetchCar();
@@ -101,7 +102,7 @@ const CarDetails = () => {
               width: selectedImageIndex === index ? '590px' : '70px',
               height: '100%',
               borderRadius: '20px',
-              backgroundImage: `url(${process.env.REACT_APP_SERVER_ADDRESS}/${image})`,
+              backgroundImage: `url(${image})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               cursor: 'pointer',
