@@ -9,7 +9,7 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const authRoutes = require('./routes/authRoutes');
 const carRoutes = require('./routes/carRoutes');
 const { SwaggerUIBundle, SwaggerUIStandalonePreset } = require('swagger-ui-dist');
-console.log(__dirname);
+console.log(__dirname + "98765");
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
