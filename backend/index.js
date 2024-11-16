@@ -32,6 +32,10 @@ const swaggerOptions = {
   },
   apis: ['./routes/*.js'],
 };
+const CSS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css';
+const options = {
+customCssUrl: CSS_URL,
+};
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 const app = express();
@@ -52,7 +56,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/api/docs', swaggerUi.serveFiles(swaggerDocs, options), swaggerUi.setup(swaggerDocs, options));
 app.use('/api/cars', upload.array('images', 10), carRoutes);
 
 // Root Route
