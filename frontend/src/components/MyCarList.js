@@ -13,7 +13,7 @@ const MyCarList = () => {
 
   const fetchCars = wrapAsync(async () => {
     const token = localStorage.getItem('token');
-    const { data } = await axios.get('http://localhost:6969/api/cars/', {
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/cars/`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setCars(data);
@@ -99,7 +99,7 @@ const MyCarList = () => {
                     <CardMedia
                       key={index}
                       component="img"
-                      image={`http://localhost:6969/${image}`}
+                      image={`${process.env.REACT_APP_SERVER_ADDRESS}/${image}`}
                       alt={`Car ${index}`}
                       sx={{
                         position: 'absolute',

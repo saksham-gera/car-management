@@ -19,7 +19,7 @@ const CarDetails = () => {
   useEffect(() => {
     const fetchCurrentUser = wrapAsync(async () => {
       const token = localStorage.getItem('token');
-      const { data } = await axios.get('http://localhost:6969/api/auth/verify', {
+      const { data } = await axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/auth/verify`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCurrentUser(data);
@@ -31,7 +31,7 @@ const CarDetails = () => {
 
   useEffect(() => {
     const fetchCar = wrapAsync(async () => {
-      const { data } = await axios.get(`http://localhost:6969/api/cars/${id}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/cars/${id}`);
       setCar(data);
     });
     fetchCar();
@@ -50,7 +50,7 @@ const CarDetails = () => {
   // Handle car deletion with wrapAsync
   const handleDelete = wrapAsync(async () => {
     const token = localStorage.getItem('token');
-    await axios.delete(`http://localhost:6969/api/cars/${id}`, {
+    await axios.delete(`${process.env.REACT_APP_SERVER_ADDRESS}/api/cars/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     navigate('/cars');
@@ -101,7 +101,7 @@ const CarDetails = () => {
               width: selectedImageIndex === index ? '590px' : '70px',
               height: '100%',
               borderRadius: '20px',
-              backgroundImage: `url(http://localhost:6969/${image})`,
+              backgroundImage: `url(${process.env.REACT_APP_SERVER_ADDRESS}/${image})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               cursor: 'pointer',

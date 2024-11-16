@@ -19,9 +19,9 @@ const CarForm = ({ isEdit = false }) => {
       const fetchCar = wrapAsync(async () => {
         setLoading(true);
         const token = localStorage.getItem('token');
-        const { data } = await axios.get(`http://localhost:6969/api/cars/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+        const { data } = await axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/cars/${id}`, { headers: { Authorization: `Bearer ${token}` } });
         setFormData({ ...data, tags: data.tags.join(', ') });
-        setPreviewImages(data.images.map((image) => `http://localhost:6969/${image}`));
+        setPreviewImages(data.images.map((image) => `${process.env.REACT_APP_SERVER_ADDRESS}/${image}`));
         setLoading(false);
       });
       fetchCar();
@@ -68,10 +68,10 @@ const CarForm = ({ isEdit = false }) => {
 
     const config = { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } };
     if (isEdit) {
-      await axios.put(`http://localhost:6969/api/cars/${id}`, carData, config);
+      await axios.put(`${process.env.REACT_APP_SERVER_ADDRESS}/api/cars/${id}`, carData, config);
       toast.success('Car Updated Successfully');
     } else {
-      await axios.post('http://localhost:6969/api/cars', carData, config);
+      await axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/cars`, carData, config);
       toast.success('Car Posted Successfully');
     }
     setLoading(false);
@@ -89,7 +89,7 @@ const CarForm = ({ isEdit = false }) => {
         backgroundColor: '#f5f5f5',
         borderRadius: '8px',
         boxShadow: 2,
-        marginTop: '80px', // Ensure content starts below the AppBar
+        marginTop: '80px',
       }}
     >
       <Typography variant="h5" textAlign="center" gutterBottom>

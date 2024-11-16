@@ -35,7 +35,7 @@ const Login = () => {
   // Wrap the login and signup functions without try-catch
   const handleLogin = wrapAsync(async (e) => {
     e.preventDefault();
-    const response = await axios.post('http://localhost:6969/api/auth/login', formData);
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/auth/login`, formData);
     if (response.status === 200) {
       const { token } = response.data;
       login(token);
@@ -45,7 +45,7 @@ const Login = () => {
 
   const handleSignup = wrapAsync(async (e) => {
     e.preventDefault();
-    const res = await axios.post('http://localhost:6969/api/auth/signup', formSignupData);
+    const res = await axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/auth/signup`, formSignupData);
     if (res.status === 200) {
       const { token } = res.data;
       login(token);

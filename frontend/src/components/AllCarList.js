@@ -13,7 +13,7 @@ const AllCarList = () => {
 
     useEffect(() => {
         const fetchCars = wrapAsync(async () => {
-            const { data } = await axios.get('http://localhost:6969/api/cars/all');
+            const { data } = await axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/cars/all`);
             setCars(data);
             setLoading(false);
         });
@@ -98,7 +98,7 @@ const AllCarList = () => {
                                         <CardMedia
                                             key={index}
                                             component="img"
-                                            image={`http://localhost:6969/${image}`}
+                                            image={`${process.env.REACT_APP_SERVER_ADDRESS}/${image}`}
                                             alt={`Car ${index}`}
                                             sx={{
                                                 position: 'absolute',
