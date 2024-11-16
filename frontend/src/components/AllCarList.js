@@ -9,6 +9,7 @@ const AllCarList = () => {
     const [search, setSearch] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,16 +36,71 @@ const AllCarList = () => {
         )
     );
 
+    const carsImages = [
+        'https://res.cloudinary.com/deaf1ehyf/image/upload/v1731762433/car6_ldty4b.avif', 
+        'https://res.cloudinary.com/deaf1ehyf/image/upload/v1731762433/car4_nytggy.jpg',
+        'https://res.cloudinary.com/deaf1ehyf/image/upload/v1731762433/car7_wfeodz.webp',
+        'https://res.cloudinary.com/deaf1ehyf/image/upload/v1731762432/car8_sdk1th.avif',
+        'https://res.cloudinary.com/deaf1ehyf/image/upload/v1731762432/car5_z2cqjt.webp',
+    ];
+
+    useEffect(() => {
+        if (carsImages) {
+          const interval = setInterval(() => {
+            setSelectedImageIndex((prevIndex) => (prevIndex + 1) % carsImages.length);
+          }, 2000);
+    
+          return () => clearInterval(interval);
+        }
+      }, [carsImages]);
+      
+
     return (
         <Box
             sx={{
                 padding: '20px',
                 maxWidth: '1200px',
+                width: '100%',
                 margin: 'auto',
-                marginTop: '80px', // Ensure content starts below the AppBar
+                marginTop: '80px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
             }}
         >
-            <Typography variant="h4" gutterBottom textAlign="center">
+            <Box
+                sx={{
+                    display: 'flex',
+                    height: '400px',
+                    overflow: 'hidden',
+                    alignItems: 'center',
+                    justifyContent: 'start',
+                    gap: '9px',
+                    marginTop: '20px',
+                }}
+            >
+                {carsImages.map((image, index) => (
+                    <Box
+                        key={index}
+                        sx={{
+                            width: selectedImageIndex === index ? '590px' : '70px',
+                            height: '100%',
+                            borderRadius: '20px',
+                            backgroundImage: `url(${image})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            cursor: 'pointer',
+                            transition: '0.6s cubic-bezier(.28,-0.03,0,.99)',
+                            display: 'flex',
+                            alignItems: 'flex-end',
+                            overflow: 'hidden',
+                        }}
+                        onClick={() => setSelectedImageIndex(index)}
+                    />
+                ))}
+            </Box>
+            <Typography variant="h4" gutterBottom textAlign="center" marginTop={3}>
                 All Posted Cars
             </Typography>
             <TextField

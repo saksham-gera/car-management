@@ -32,7 +32,6 @@ const CarDetails = () => {
   useEffect(() => {
     const fetchCar = wrapAsync(async () => {
       const { data } = await axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/cars/${id}`);
-      console.log(data);
       setCar(data);
     });
     fetchCar();
@@ -83,7 +82,6 @@ const CarDetails = () => {
         width: '100%',
       }}
     >
-      {/* Animated Flex Cards */}
       <Box
         sx={{
           display: 'flex',
@@ -119,7 +117,6 @@ const CarDetails = () => {
       <Typography variant="h5" style={{marginTop: '1rem', fontWeight: '600'}} gutterBottom>{car.title}</Typography>
       <Typography variant="body1" gutterBottom>{car.description}</Typography>
 
-      {/* Action Buttons */}
       {isOwner && (
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px', gap: '10px' }}>
           <Button
@@ -130,7 +127,7 @@ const CarDetails = () => {
               backgroundColor: 'white',
               color: '#222831',
               '&:hover': {
-                backgroundColor: '#222831', // Blackish tint
+                backgroundColor: '#222831',
                 color: 'white',
               },
             }}

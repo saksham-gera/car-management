@@ -25,8 +25,10 @@ const uploadToCloudinary = async (buffer) => {
 const deleteImages = async (imageUrls) => {
   try {
     const deletionPromises = imageUrls.map((url) => {
-      const publicId = url.split('/').pop().split('.')[0]; // Extract the public ID from the URL
-      return cloudinary.uploader.destroy(publicId);       // Delete the image by public ID
+      const parts = url.split('/'); // Split the URL into parts
+      const publicIdWithExtension = parts[parts.length - 1]; // Get the last part (e.g., ewfv6yua6bdfjbkctr5f.webp)
+      const publicId = publicIdWithExtension.split('.')[0]; // Remove the file extension
+      return cloudinary.uploader.destroy(publicId); // Delete the image by public ID
     });
 
     return await Promise.all(deletionPromises); // Wait for all deletions

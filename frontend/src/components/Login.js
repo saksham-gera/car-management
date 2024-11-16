@@ -71,7 +71,7 @@ const Login = () => {
         <div className="form-container sign-in">
           <form onSubmit={handleLogin}>
             <h1 style={{ fontSize: "30px" }}>Login</h1>
-            <span>or use your email password</span>
+            <span>Use Your Previously Used Login Details</span>
             <input type="username" name='username' value={formData.username}
               onChange={handleChange} placeholder="Username" />
             <input type="password" name='password' placeholder="Password" value={formData.password}
