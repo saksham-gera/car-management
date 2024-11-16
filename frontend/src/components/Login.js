@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../AuthProvider';
-import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import wrapAsync from '../wrapAsync';  // Import wrapAsync
+import wrapAsync from '../wrapAsync';
 import toast from 'react-hot-toast';
 
 const Login = () => {
