@@ -21,7 +21,7 @@ const CarForm = ({ isEdit = false }) => {
         const token = localStorage.getItem('token');
         const { data } = await axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/cars/${id}`, { headers: { Authorization: `Bearer ${token}` } });
         setFormData({ ...data, tags: data.tags.join(', ') });
-        setPreviewImages(data.images.map((image) => `${process.env.REACT_APP_SERVER_ADDRESS}/${image}`));
+        setPreviewImages(data.images.map((image) => `${image}`));
         setLoading(false);
       });
       fetchCar();
