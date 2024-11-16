@@ -11,7 +11,6 @@ const authRoutes = require('./routes/authRoutes');
 const carRoutes = require('./routes/carRoutes');
 const { SwaggerUIBundle, SwaggerUIStandalonePreset } = require('swagger-ui-dist');
 
-
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
@@ -32,7 +31,7 @@ const swaggerOptions = {
     },
     security: [{ bearerAuth: [] }],
   },
-  apis: ['./routes/*.js'],
+  apis: ['./api/*.js'],
 };
 const CSS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css';
 const options = {
@@ -47,8 +46,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Multer configuration for file uploads
-const storage = multer.memoryStorage(); // Store files in memory as buffer
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 // Database Connection
