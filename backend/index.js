@@ -36,9 +36,16 @@ const options = {
 customCssUrl: CSS_URL,
 customCss: `
     .swagger-ui .opblock-summary-path {
-      all: unset;
-      display: inline-block;
-      font-size: 14px;
+      width: 20vw;
+      display: inline-flex;
+      white-space: nowrap;
+      overflow-wrap: break-word;
+      margin: 0;
+      padding: 0;
+    }
+    .swagger-ui .opblock-summary {
+      display: flex;
+      align-items: center;
     }
   `,
 };
