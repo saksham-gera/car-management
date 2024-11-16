@@ -80,6 +80,7 @@ const CarDetails = () => {
         justifyContent: 'center',
         height: '90vh',
         width: '100%',
+        marginTop: '2rem'
       }}
     >
       <Box
